@@ -5,10 +5,12 @@ Quiz 01
 March 9, 2022
 '''
 
-from controller import Robot, Motor, DistanceSensor, Compass, TouchSensor
+from controller import Robot, Motor, DistanceSensor, Compass, TouchSensor, LightSensor
 from enum import Enum
 import math
 import logging as log
+import time
+import random
 
 LOG_LEVEL = log.DEBUG
 LOG_LEVEL = log.INFO
@@ -38,7 +40,7 @@ def getRobotDevice(name: str):
     if isinstance(device, Motor):
         device.setPosition(float('inf'))
         device.setVelocity(0.0)
-    if isinstance(device, DistanceSensor) or isinstance(device, Compass) or isinstance(device, TouchSensor):
+    if isinstance(device, DistanceSensor) or isinstance(device, Compass) or isinstance(device, TouchSensor) or isinstance(device, LightSensor):
         device.enable(TIME_STEP)
     return device
 
@@ -110,9 +112,26 @@ ps7: DistanceSensor = getRobotDevice('ps7')
 compass: Compass = getRobotDevice('compass')
 touch: TouchSensor = getRobotDevice("touch sensor")
 
-setSpeed(100)
+sen: LightSensor = getRobotDevice("distance sensor main")
+
+def turn():
+    global leftMotor
+    global rightMotor
+    leftMotor.setVelocity(1)
+    rightMotor.setVelocity(-1)
+leftMotor.setVelocity(3)
+rightMotor.setVelocity(3.5)
+stop_turn = 0
 
 while robot.step(TIME_STEP) != -1:
-    printDebug()
+    light_val = ps0.getValue()
+    if light_val > 100:
+        turn()
+        stop_turn = random.randint(10, 30)
+    if stop_turn < 1:
+        leftMotor.setVelocity(3)
+        rightMotor.setVelocity(3.5)
+    else:
+        stop_turn -= 1
 
 # END
