@@ -1,3 +1,4 @@
 [submodule "Tango-Bots"]
 	path = Tango-Bots
 	url = git@github.com:RK-MSU/Tango-Bots.git
+	branch = master
