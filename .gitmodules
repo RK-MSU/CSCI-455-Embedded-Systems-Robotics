@@ -2,3 +2,7 @@
 	path = Tango-Bots
 	url = git@github.com:RK-MSU/Tango-Bots.git
 	branch = master
+[submodule "E-Puck-Robot-Maze"]
+	path = E-Puck-Robot-Maze
+	url = git@github.com:RK-MSU/CSCI-455-E-Puck-Robot-Maze.git
+	branch = master
